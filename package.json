@@ -40,5 +40,8 @@
   ],
   "dependencies": {
     "commander": "^6.0.0"
+  },
+  "resolutions": {
+    "dot-prop": "^5.1.1"
   }
 }
