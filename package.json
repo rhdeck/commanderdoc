@@ -1,6 +1,5 @@
 {
-  "name": "template",
-  "private": true,
+  "name": "commanderdoc",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
@@ -9,19 +8,19 @@
     "pre-commit": "git-branch-is --not main && yarn test",
     "test": "tsc --noEmit",
     "build": "tsc",
-    "docs": "typedoc --theme markdown --readme none --mode file --excludeNotExported --includeVersion --out docstemp && rm README.md ; concat-md docstemp > README.md && rm -rf docstemp",
+    "docs": "node lib/bin.js markdown lib/bin.js --cli-name commanderdoc > cli.md && typedoc --theme markdown --readme cli.md --mode file --excludeNotExported --includeVersion --out docstemp && rm README.md ; concat-md docstemp > README.md && rm -rf docstemp && rm cli.md",
     "prepublishOnly": "yarn build && yarn docs && git commit README.md -m \"docs: updating docs\" && git push"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rhdeck/serverless-base.git"
+    "url": "git+https://github.com/rhdeck/commanderdoc.git"
   },
   "author": "Ray Deck",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rhdeck/base/issues"
+    "url": "https://github.com/rhdeck/commanderdoc/issues"
   },
-  "homepage": "https://github.com/rhdeck/base#readme",
+  "homepage": "https://github.com/rhdeck/commanderdoc#readme",
   "devDependencies": {
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
