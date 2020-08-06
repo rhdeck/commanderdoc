@@ -4,7 +4,6 @@ import { commanderToMd, getCommand } from ".";
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 commander
-
   .command("markdown <sourcefile>")
   .option(
     "-e --exported <commanderObject>",
@@ -18,6 +17,10 @@ commander
   .option("-n --cli-name <name>", "Name of the executable")
   .action((sourcefile, { exported, outFile, cliName = sourcefile }) => {
     const resolvedSource = resolve(process.cwd(), sourcefile);
+    console.log("resolved source is ", resolvedSource);
+    //need to clean out commander
+    commander.commands = [];
+    commander.parse = () => commander;
     const exports = require(resolvedSource);
     const command = exports[exported];
     if (!command) {
@@ -53,6 +56,5 @@ commander
     if (outFile) writeFileSync(outFile, json);
     else process.stdout.write(json);
   });
-
 commander.parse(process.argv);
 export { commander };

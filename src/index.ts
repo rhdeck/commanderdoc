@@ -67,7 +67,7 @@ function optionToMd(option: OptionType, startLevel: number = 1) {
   //markdown - start with header
   lines.push(
     `* ${flags.replace("<", "\\<`").replace(">", "`>")} ${description} ${
-      defaultValue && "(default: " + defaultValue.toString()
+      defaultValue ? "(default: " + defaultValue.toString() : ""
     }`
   );
   return lines.join("\n");
@@ -79,9 +79,8 @@ export function commandToMd(command: CommandType, startLevel: number = 1) {
     padLevel(startLevel) +
       " " +
       name +
-      (args &&
-        !!args!.length &&
-        " " +
+      (args && !!args!.length
+        ? " " +
           args!
             .map(({ required, name, variadic }) => {
               const pieces: string[] = [];
@@ -93,11 +92,13 @@ export function commandToMd(command: CommandType, startLevel: number = 1) {
               pieces.push(required ? ">" : "]");
               return pieces.join("");
             })
-            .join(" ")) || ""
+            .join(" ")
+        : "")
   );
   if (description) lines.push(description);
-  if (options) {
-    lines.push(...options.map((option) => optionToMd(option)));
+  if (options && !!options.filter(Boolean).length) {
+    lines.push(padLevel(startLevel + 1) + " Options");
+    lines.push(...options.filter(Boolean).map((option) => optionToMd(option)));
   }
   if (commands && commands.filter(Boolean).length) {
     lines.push(padLevel(startLevel + 1) + " Subcommands");
@@ -108,11 +109,11 @@ export function commandToMd(command: CommandType, startLevel: number = 1) {
   return lines.join("\n");
 }
 export function commanderToMd(
-  commander: { [key: string]: any },
+  c: { [key: string]: any },
   cliName: string,
   startLevel: number = 1
 ) {
-  const inspectedCommander = getCommand(commander);
+  const inspectedCommander = getCommand(c);
   let lines: string[] = [];
   lines.push(padLevel(startLevel) + " Usage");
   lines.push("```bash");
@@ -123,14 +124,26 @@ export function commanderToMd(
     lines.push(cliName + " [options] [command]");
   else lines.push(cliName + "[options]");
   lines.push("```");
+
+  if (
+    inspectedCommander.options &&
+    inspectedCommander.options.filter(Boolean).length
+  ) {
+    lines.push(padLevel(startLevel) + " Options");
+    lines.push(
+      ...inspectedCommander.options.map((option) =>
+        optionToMd(option, startLevel + 1)
+      )
+    );
+  }
   if (
     inspectedCommander.commands &&
     inspectedCommander.commands.filter(Boolean).length
   ) {
-    lines.push(padLevel(startLevel + 1) + " Commands");
+    lines.push(padLevel(startLevel) + " Commands");
     lines.push(
       ...inspectedCommander.commands.map((command) =>
-        commandToMd(command, startLevel + 2)
+        commandToMd(command, startLevel + 1)
       )
     );
   } else lines.push(commandToMd(inspectedCommander, startLevel + 1));
