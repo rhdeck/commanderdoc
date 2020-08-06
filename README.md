@@ -1,23 +1,40 @@
 
 <a name="readmemd"></a>
 
-[commanderdoc - v0.1.1](#readmemd) › [Globals](#globalsmd)
+[commanderdoc - v0.1.2](#readmemd) › [Globals](#globalsmd)
 
-# commanderdoc - v0.1.1
+# commanderdoc - v0.1.2
 
-resolved source is  /Users/ray/Documents/GitHub/commander-inspect/lib/bin.js
 # Usage
 ```bash
-commanderdoc[options]
+commanderdoc [options] [command]
 ```
-## bin
+# Commands
+## markdown \<`sourcefile`>
+### Usage
+```bash
+commanderdoc markdown [options] <sourcefile>
+```
+### Options
+* -e --exported \<`commanderObject`> Name of the exported commander object to inspect (default: commander
+* -o --out-file \<`outfile`> File to store markdown output (defaults to stdout) 
+* -n --cli-name \<`name`> Name of the executable 
+## json \<`sourcefile`>
+Extract inspected commander as JSON
+### Usage
+```bash
+commanderdoc json [options] <sourcefile>
+```
+### Options
+* -e --exported \<`commanderObject`> Name of the exported commander object to inspect (default: commander
+* -o --out-file \<`outfile`> File to store markdown output (defaults to stdout)
 
 
 <a name="globalsmd"></a>
 
-[commanderdoc - v0.1.1](#readmemd) › [Globals](#globalsmd)
+[commanderdoc - v0.1.2](#readmemd) › [Globals](#globalsmd)
 
-# commanderdoc - v0.1.1
+# commanderdoc - v0.1.2
 
 ## Index
 
@@ -43,7 +60,7 @@ commanderdoc[options]
 
 Ƭ **CommandType**: *object*
 
-*Defined in [index.ts:35](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L35)*
+*Defined in [index.ts:35](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L35)*
 
 #### Type declaration:
 
@@ -63,15 +80,15 @@ ___
 
 Ƭ **OptionType**: *ReturnType‹typeof getOption›*
 
-*Defined in [index.ts:34](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L34)*
+*Defined in [index.ts:34](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L34)*
 
 ## Functions
 
 ###  commandToMd
 
-▸ **commandToMd**(`command`: [CommandType](#commandtype), `startLevel`: number): *string*
+▸ **commandToMd**(`command`: [CommandType](#commandtype), `startLevel`: number, `parents`: string[]): *string*
 
-*Defined in [index.ts:75](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L75)*
+*Defined in [index.ts:75](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L75)*
 
 **Parameters:**
 
@@ -79,6 +96,7 @@ Name | Type | Default |
 ------ | ------ | ------ |
 `command` | [CommandType](#commandtype) | - |
 `startLevel` | number | 1 |
+`parents` | string[] | [] |
 
 **Returns:** *string*
 
@@ -88,7 +106,7 @@ ___
 
 ▸ **commanderToMd**(`c`: object, `cliName`: string, `startLevel`: number): *string*
 
-*Defined in [index.ts:111](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L111)*
+*Defined in [index.ts:138](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L138)*
 
 **Parameters:**
 
@@ -106,7 +124,7 @@ ___
 
 ▸ **getCommand**(`o`: object): *[CommandType](#commandtype)*
 
-*Defined in [index.ts:45](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L45)*
+*Defined in [index.ts:45](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L45)*
 
 **Parameters:**
 
@@ -122,7 +140,7 @@ ___
 
 ▸ **getCommands**(`commands`: object[]): *[CommandType](#commandtype)[]*
 
-*Defined in [index.ts:42](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L42)*
+*Defined in [index.ts:42](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L42)*
 
 **Parameters:**
 
@@ -138,7 +156,7 @@ ___
 
 ▸ **getOption**(`o`: object): *object*
 
-*Defined in [index.ts:6](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L6)*
+*Defined in [index.ts:6](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L6)*
 
 **Parameters:**
 
@@ -176,7 +194,7 @@ ___
 
 ▸ **getOptions**(`options`: any[]): *object[]*
 
-*Defined in [index.ts:3](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L3)*
+*Defined in [index.ts:3](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L3)*
 
 **Parameters:**
 
@@ -192,7 +210,7 @@ ___
 
 ▸ **optionToMd**(`option`: [OptionType](#optiontype), `startLevel`: number): *string*
 
-*Defined in [index.ts:64](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L64)*
+*Defined in [index.ts:64](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L64)*
 
 **Parameters:**
 
@@ -209,7 +227,7 @@ ___
 
 ▸ **padLevel**(`level`: number): *string*
 
-*Defined in [index.ts:61](https://github.com/rhdeck/commander-inspect/blob/db60a44/src/index.ts#L61)*
+*Defined in [index.ts:61](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L61)*
 
 **Parameters:**
 
