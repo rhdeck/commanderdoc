@@ -17,10 +17,11 @@ commander
   .option("-n --cli-name <name>", "Name of the executable")
   .action((sourcefile, { exported, outFile, cliName = sourcefile }) => {
     const resolvedSource = resolve(process.cwd(), sourcefile);
-    console.log("resolved source is ", resolvedSource);
     //need to clean out commander
-    commander.commands = [];
-    commander.parse = () => commander;
+    if (resolvedSource !== __filename) {
+      commander.commands = [];
+      commander.parse = () => commander;
+    }
     const exports = require(resolvedSource);
     const command = exports[exported];
     if (!command) {
