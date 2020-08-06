@@ -1,9 +1,16 @@
-import { join } from "path";
+import commander from "commander";
 
+/**
+ * Get filtered map of attributes for a list of options
+ * @param options Options for a command
+ */
 export function getOptions(options: any[]) {
   return options.filter(Boolean).map(getOption);
 }
-function getOption(o: { [key: string]: any }) {
+/** Get filtered list of attributes for a single options
+ * @param option Option for a commands
+ */
+function getOption(option: { [key: string]: any }) {
   const {
     flags,
     required,
@@ -16,7 +23,7 @@ function getOption(o: { [key: string]: any }) {
     description,
     defaultValue,
     args,
-  } = o;
+  } = option;
   return {
     flags,
     required,
@@ -39,17 +46,25 @@ type CommandType = {
   commands?: CommandType[];
   args?: { required: boolean; name: string; variadic: boolean }[];
 };
+/**
+ * Recursively inspect a list of commands
+ * @param commands List of commands to inspect (usually from `command.commands`)
+ */
 export function getCommands(commands: { [key: string]: any }[]): CommandType[] {
   return commands.filter(Boolean).map(getCommand);
 }
-export function getCommand(o: { [key: string]: any }): CommandType {
+/**
+ * Generate a map of properties of a command object
+ * @param command Commander command object to inspect
+ */
+export function getCommand(command: { [key: string]: any }): CommandType {
   const {
     _args: args,
     _name: name,
     _description: description,
     options,
     commands,
-  } = o;
+  } = command;
   return {
     name,
     args,
@@ -58,10 +73,18 @@ export function getCommand(o: { [key: string]: any }): CommandType {
     commands: commands && getCommands(commands),
   };
 }
+/**
+ * Generate a markdown header prefix at the indicated level
+ * @internal
+ * @param level level of the markdown header padding
+ */
 function padLevel(level: number) {
   return new Array(level).fill("#").join("");
 }
-function optionToMd(option: OptionType, startLevel: number = 1) {
+/** Generate markdown for a single commander option
+ * @param option Option to generate markdown for
+ */
+function optionToMd(option: OptionType) {
   const { flags, description, defaultValue } = option;
   let lines: string[] = [];
   //markdown - start with header
@@ -72,6 +95,12 @@ function optionToMd(option: OptionType, startLevel: number = 1) {
   );
   return lines.join("\n");
 }
+/**
+ * Convert an inspected command to a markdown string
+ * @param command inspected command to inspect (result of getCommand(command))
+ * @param startLevel header level to start with
+ * @param parents list of parent commands and cli name to document usage
+ */
 export function commandToMd(
   command: CommandType,
   startLevel: number = 1,
@@ -135,12 +164,18 @@ export function commandToMd(
   }
   return lines.join("\n");
 }
+/**
+ * Document a top-level cli - recommended use case
+ * @param commander Top level commander object (usually from `export commander` or `module.exports.commander = commander`)
+ * @param cliName Name of the executable (for usage documentation)
+ * @param startLevel Level to start the markdown headers (e.g. use 2 or greater to fit it into sub-documentation)
+ */
 export function commanderToMd(
-  c: { [key: string]: any },
+  commander: { [key: string]: any },
   cliName: string,
   startLevel: number = 1
 ) {
-  const inspectedCommander = getCommand(c);
+  const inspectedCommander = getCommand(commander);
   let lines: string[] = [];
   lines.push(padLevel(startLevel) + " Usage");
   lines.push("```bash");
@@ -158,9 +193,7 @@ export function commanderToMd(
   ) {
     lines.push(padLevel(startLevel) + " Options");
     lines.push(
-      ...inspectedCommander.options.map((option) =>
-        optionToMd(option, startLevel + 1)
-      )
+      ...inspectedCommander.options.map((option) => optionToMd(option))
     );
   }
   if (
@@ -176,3 +209,4 @@ export function commanderToMd(
   }
   return lines.join("\n");
 }
+export default commanderToMd;
