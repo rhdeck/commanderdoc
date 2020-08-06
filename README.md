@@ -60,7 +60,7 @@ commanderdoc json [options] <sourcefile>
 
 Ƭ **CommandType**: *object*
 
-*Defined in [index.ts:35](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L35)*
+*Defined in [index.ts:42](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L42)*
 
 #### Type declaration:
 
@@ -80,7 +80,7 @@ ___
 
 Ƭ **OptionType**: *ReturnType‹typeof getOption›*
 
-*Defined in [index.ts:34](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L34)*
+*Defined in [index.ts:41](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L41)*
 
 ## Functions
 
@@ -88,15 +88,17 @@ ___
 
 ▸ **commandToMd**(`command`: [CommandType](#commandtype), `startLevel`: number, `parents`: string[]): *string*
 
-*Defined in [index.ts:75](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L75)*
+*Defined in [index.ts:104](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L104)*
+
+Convert an inspected command to a markdown string
 
 **Parameters:**
 
-Name | Type | Default |
------- | ------ | ------ |
-`command` | [CommandType](#commandtype) | - |
-`startLevel` | number | 1 |
-`parents` | string[] | [] |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`command` | [CommandType](#commandtype) | - | inspected command to inspect (result of getCommand(command)) |
+`startLevel` | number | 1 | header level to start with |
+`parents` | string[] | [] | list of parent commands and cli name to document usage  |
 
 **Returns:** *string*
 
@@ -104,17 +106,19 @@ ___
 
 ###  commanderToMd
 
-▸ **commanderToMd**(`c`: object, `cliName`: string, `startLevel`: number): *string*
+▸ **commanderToMd**(`commander`: object, `cliName`: string, `startLevel`: number): *string*
 
-*Defined in [index.ts:138](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L138)*
+*Defined in [index.ts:173](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L173)*
+
+Document a top-level cli - recommended use case
 
 **Parameters:**
 
-Name | Type | Default |
------- | ------ | ------ |
-`c` | object | - |
-`cliName` | string | - |
-`startLevel` | number | 1 |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`commander` | object | - | Top level commander object (usually from `export commander` or `module.exports.commander = commander`) |
+`cliName` | string | - | Name of the executable (for usage documentation) |
+`startLevel` | number | 1 | Level to start the markdown headers (e.g. use 2 or greater to fit it into sub-documentation)  |
 
 **Returns:** *string*
 
@@ -122,15 +126,17 @@ ___
 
 ###  getCommand
 
-▸ **getCommand**(`o`: object): *[CommandType](#commandtype)*
+▸ **getCommand**(`command`: object): *[CommandType](#commandtype)*
 
-*Defined in [index.ts:45](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L45)*
+*Defined in [index.ts:60](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L60)*
+
+Generate a map of properties of a command object
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`o` | object |
+Name | Type | Description |
+------ | ------ | ------ |
+`command` | object | Commander command object to inspect  |
 
 **Returns:** *[CommandType](#commandtype)*
 
@@ -140,13 +146,15 @@ ___
 
 ▸ **getCommands**(`commands`: object[]): *[CommandType](#commandtype)[]*
 
-*Defined in [index.ts:42](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L42)*
+*Defined in [index.ts:53](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L53)*
+
+Recursively inspect a list of commands
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`commands` | object[] |
+Name | Type | Description |
+------ | ------ | ------ |
+`commands` | object[] | List of commands to inspect (usually from `command.commands`)  |
 
 **Returns:** *[CommandType](#commandtype)[]*
 
@@ -154,15 +162,17 @@ ___
 
 ###  getOption
 
-▸ **getOption**(`o`: object): *object*
+▸ **getOption**(`option`: object): *object*
 
-*Defined in [index.ts:6](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L6)*
+*Defined in [index.ts:13](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L13)*
+
+Get filtered list of attributes for a single options
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`o` | object |
+Name | Type | Description |
+------ | ------ | ------ |
+`option` | object | Option for a commands  |
 
 **Returns:** *object*
 
@@ -194,13 +204,15 @@ ___
 
 ▸ **getOptions**(`options`: any[]): *object[]*
 
-*Defined in [index.ts:3](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L3)*
+*Defined in [index.ts:7](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L7)*
+
+Get filtered map of attributes for a list of options
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | any[] |
+Name | Type | Description |
+------ | ------ | ------ |
+`options` | any[] | Options for a command  |
 
 **Returns:** *object[]*
 
@@ -208,16 +220,17 @@ ___
 
 ###  optionToMd
 
-▸ **optionToMd**(`option`: [OptionType](#optiontype), `startLevel`: number): *string*
+▸ **optionToMd**(`option`: [OptionType](#optiontype)): *string*
 
-*Defined in [index.ts:64](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L64)*
+*Defined in [index.ts:87](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L87)*
+
+Generate markdown for a single commander option
 
 **Parameters:**
 
-Name | Type | Default |
+Name | Type | Description |
 ------ | ------ | ------ |
-`option` | [OptionType](#optiontype) | - |
-`startLevel` | number | 1 |
+`option` | [OptionType](#optiontype) | Option to generate markdown for  |
 
 **Returns:** *string*
 
@@ -227,12 +240,16 @@ ___
 
 ▸ **padLevel**(`level`: number): *string*
 
-*Defined in [index.ts:61](https://github.com/rhdeck/commanderdoc/blob/1ff27fe/src/index.ts#L61)*
+*Defined in [index.ts:81](https://github.com/rhdeck/commanderdoc/blob/ebf160e/src/index.ts#L81)*
+
+Generate a markdown header prefix at the indicated level
+
+**`internal`** 
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`level` | number |
+Name | Type | Description |
+------ | ------ | ------ |
+`level` | number | level of the markdown header padding  |
 
 **Returns:** *string*
