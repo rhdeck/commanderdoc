@@ -72,7 +72,11 @@ function optionToMd(option: OptionType, startLevel: number = 1) {
   );
   return lines.join("\n");
 }
-export function commandToMd(command: CommandType, startLevel: number = 1) {
+export function commandToMd(
+  command: CommandType,
+  startLevel: number = 1,
+  parents: string[] = []
+) {
   const { options, description, name, commands, args } = command;
   let lines: string[] = [];
   lines.push(
@@ -96,6 +100,26 @@ export function commandToMd(command: CommandType, startLevel: number = 1) {
         : "")
   );
   if (description) lines.push(description);
+  lines.push(padLevel(startLevel + 1) + " Usage");
+  lines.push("```bash");
+  lines.push(
+    [...parents, name].join(" ") +
+      " [options]" +
+      (args && !!args!.length
+        ? " " +
+          args!
+            .map(({ required, name, variadic }) => {
+              const pieces: string[] = [];
+              pieces.push(required ? "<" : "[");
+              if (variadic) pieces.push("...");
+              pieces.push(name);
+              pieces.push(required ? ">" : "]");
+              return pieces.join("");
+            })
+            .join(" ")
+        : "")
+  );
+  lines.push("```");
   if (options && !!options.filter(Boolean).length) {
     lines.push(padLevel(startLevel + 1) + " Options");
     lines.push(...options.filter(Boolean).map((option) => optionToMd(option)));
@@ -103,7 +127,10 @@ export function commandToMd(command: CommandType, startLevel: number = 1) {
   if (commands && commands.filter(Boolean).length) {
     lines.push(padLevel(startLevel + 1) + " Subcommands");
     lines.push(
-      ...commands.map((command) => commandToMd(command, startLevel + 2))
+      ...commands.map((command) => commandToMd(command, startLevel + 2), [
+        ...parents,
+        name,
+      ])
     );
   }
   return lines.join("\n");
@@ -143,9 +170,9 @@ export function commanderToMd(
     lines.push(padLevel(startLevel) + " Commands");
     lines.push(
       ...inspectedCommander.commands.map((command) =>
-        commandToMd(command, startLevel + 1)
+        commandToMd(command, startLevel + 1, [cliName])
       )
     );
-  } else lines.push(commandToMd(inspectedCommander, startLevel + 1));
+  }
   return lines.join("\n");
 }
