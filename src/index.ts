@@ -184,7 +184,24 @@ export function commanderToMd(
     inspectedCommander.commands.filter(Boolean).length
   )
     lines.push(cliName + " [options] [command]");
-  else lines.push(cliName + "[options]");
+  else
+    lines.push(
+      cliName +
+        " [options]" +
+        (inspectedCommander.args && !!inspectedCommander.args!.length
+          ? " " +
+            inspectedCommander
+              .args!.map(({ required, name, variadic }) => {
+                const pieces: string[] = [];
+                pieces.push(required ? "<" : "[");
+                if (variadic) pieces.push("...");
+                pieces.push(name);
+                pieces.push(required ? ">" : "]");
+                return pieces.join("");
+              })
+              .join(" ")
+          : "")
+    );
   lines.push("```");
 
   if (
