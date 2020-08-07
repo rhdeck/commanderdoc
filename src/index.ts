@@ -146,7 +146,8 @@ export function commandToMd(
               return pieces.join("");
             })
             .join(" ")
-        : "")
+        : "") +
+      (commands ? " [command]" : "")
   );
   lines.push("```");
   if (options && !!options.filter(Boolean).length) {
