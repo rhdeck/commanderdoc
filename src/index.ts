@@ -90,7 +90,7 @@ function optionToMd(option: OptionType) {
   //markdown - start with header
   lines.push(
     `* ${flags.replace("<", "\\<`").replace(">", "`>")} ${description} ${
-      defaultValue ? "(default: " + defaultValue.toString() + ")" : ""
+      defaultValue ? "(default: `" + defaultValue.toString() + "`)" : ""
     }`
   );
   return lines.join("\n");
