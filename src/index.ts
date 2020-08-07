@@ -203,7 +203,8 @@ export function commanderToMd(
           : "")
     );
   lines.push("```");
-
+  if (inspectedCommander.description)
+    lines.push(inspectedCommander.description);
   if (
     inspectedCommander.options &&
     inspectedCommander.options.filter(Boolean).length
