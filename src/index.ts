@@ -156,10 +156,9 @@ export function commandToMd(
   if (commands && commands.filter(Boolean).length) {
     lines.push(padLevel(startLevel + 1) + " Subcommands");
     lines.push(
-      ...commands.map((command) => commandToMd(command, startLevel + 2), [
-        ...parents,
-        name,
-      ])
+      ...commands.map((command) =>
+        commandToMd(command, startLevel + 2, [...parents, name])
+      )
     );
   }
   return lines.join("\n");
