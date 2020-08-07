@@ -1,6 +1,6 @@
 {
   "name": "commanderdoc",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "",
   "main": "lib/index.js",
   "bin": "lib/bin.js",
