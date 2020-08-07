@@ -147,7 +147,7 @@ export function commandToMd(
             })
             .join(" ")
         : "") +
-      (commands ? " [command]" : "")
+      (commands && commands.length ? " [command]" : "")
   );
   lines.push("```");
   if (options && !!options.filter(Boolean).length) {
