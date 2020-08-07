@@ -1,9 +1,9 @@
 
 <a name="readmemd"></a>
 
-[commanderdoc - v0.1.6](#readmemd) › [Globals](#globalsmd)
+[commanderdoc - v0.1.7](#readmemd) › [Globals](#globalsmd)
 
-# commanderdoc - v0.1.6
+# commanderdoc - v0.1.7
 
 # Usage
 ```bash
@@ -16,7 +16,7 @@ commanderdoc [options] [command]
 commanderdoc markdown [options] <sourcefile>
 ```
 ### Options
-* -e --exported \<`commanderObject`> Name of the exported commander object to inspect (default: commander)
+* -e --exported \<`commanderObject`> Name of the exported commander object to inspect (default: `commander`)
 * -o --out-file \<`outfile`> File to store markdown output (defaults to stdout) 
 * -n --cli-name \<`name`> Name of the executable 
 ## json \<`sourcefile`>
@@ -26,15 +26,15 @@ Extract inspected commander as JSON
 commanderdoc json [options] <sourcefile>
 ```
 ### Options
-* -e --exported \<`commanderObject`> Name of the exported commander object to inspect (default: commander)
+* -e --exported \<`commanderObject`> Name of the exported commander object to inspect (default: `commander`)
 * -o --out-file \<`outfile`> File to store markdown output (defaults to stdout)
 
 
 <a name="globalsmd"></a>
 
-[commanderdoc - v0.1.6](#readmemd) › [Globals](#globalsmd)
+[commanderdoc - v0.1.7](#readmemd) › [Globals](#globalsmd)
 
-# commanderdoc - v0.1.6
+# commanderdoc - v0.1.7
 
 ## Index
 
@@ -60,7 +60,7 @@ commanderdoc json [options] <sourcefile>
 
 Ƭ **CommandType**: *object*
 
-*Defined in [index.ts:42](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L42)*
+*Defined in [index.ts:42](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L42)*
 
 #### Type declaration:
 
@@ -80,7 +80,7 @@ ___
 
 Ƭ **OptionType**: *ReturnType‹typeof getOption›*
 
-*Defined in [index.ts:41](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L41)*
+*Defined in [index.ts:41](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L41)*
 
 ## Functions
 
@@ -88,7 +88,7 @@ ___
 
 ▸ **commandToMd**(`command`: [CommandType](#commandtype), `startLevel`: number, `parents`: string[]): *string*
 
-*Defined in [index.ts:104](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L104)*
+*Defined in [index.ts:104](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L104)*
 
 Convert an inspected command to a markdown string
 
@@ -108,7 +108,7 @@ ___
 
 ▸ **commanderToMd**(`commander`: object, `cliName`: string, `startLevel`: number): *string*
 
-*Defined in [index.ts:173](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L173)*
+*Defined in [index.ts:173](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L173)*
 
 Document a top-level cli - recommended use case
 
@@ -128,7 +128,7 @@ ___
 
 ▸ **getCommand**(`command`: object): *[CommandType](#commandtype)*
 
-*Defined in [index.ts:60](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L60)*
+*Defined in [index.ts:60](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L60)*
 
 Generate a map of properties of a command object
 
@@ -146,7 +146,7 @@ ___
 
 ▸ **getCommands**(`commands`: object[]): *[CommandType](#commandtype)[]*
 
-*Defined in [index.ts:53](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L53)*
+*Defined in [index.ts:53](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L53)*
 
 Recursively inspect a list of commands
 
@@ -164,7 +164,7 @@ ___
 
 ▸ **getOption**(`option`: object): *object*
 
-*Defined in [index.ts:13](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L13)*
+*Defined in [index.ts:13](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L13)*
 
 Get filtered list of attributes for a single options
 
@@ -204,7 +204,7 @@ ___
 
 ▸ **getOptions**(`options`: any[]): *object[]*
 
-*Defined in [index.ts:7](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L7)*
+*Defined in [index.ts:7](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L7)*
 
 Get filtered map of attributes for a list of options
 
@@ -222,7 +222,7 @@ ___
 
 ▸ **optionToMd**(`option`: [OptionType](#optiontype)): *string*
 
-*Defined in [index.ts:87](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L87)*
+*Defined in [index.ts:87](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L87)*
 
 Generate markdown for a single commander option
 
@@ -240,7 +240,7 @@ ___
 
 ▸ **padLevel**(`level`: number): *string*
 
-*Defined in [index.ts:81](https://github.com/rhdeck/commanderdoc/blob/2cd640e/src/index.ts#L81)*
+*Defined in [index.ts:81](https://github.com/rhdeck/commanderdoc/blob/16d3b8a/src/index.ts#L81)*
 
 Generate a markdown header prefix at the indicated level
 
