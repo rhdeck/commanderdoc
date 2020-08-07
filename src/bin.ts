@@ -22,6 +22,7 @@ commander
       commander.commands = [];
       commander.parse = () => commander;
     }
+    commander.isDocumenting = true;
     const exports = require(resolvedSource);
     const command = exports[exported];
     if (!command) {

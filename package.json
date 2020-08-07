@@ -31,15 +31,14 @@
     "jq": "^1.7.2",
     "typedoc": "^0.17.8",
     "typedoc-plugin-markdown": "^2.4.0",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "commander": "^6.0.0"
   },
   "files": [
     "src",
     "lib"
   ],
-  "dependencies": {
-    "commander": "^6.0.0"
-  },
+  "dependencies": {},
   "resolutions": {
     "dot-prop": "^5.1.1"
   }
